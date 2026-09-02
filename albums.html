@@ -1,0 +1,10 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>אלבומים</title><link rel="stylesheet" href="css/main.css"><script src="js/config.js"></script><script src="js/utils.js"></script><script src="js/session-manager.js"></script><script src="js/theme.js"></script><script>
+(function(){
+  const s=getSession();
+  if(!s || !s.user || !s.token){
+    const ret=location.pathname.split('/').pop()+location.search;
+    location.replace("index.html?autoLogin=1&return="+encodeURIComponent(ret));
+  }
+})();
+</script>
+<link rel="stylesheet" href="css/session-manager.css"></head><body><header class="top"><a class="brand" href="index.html">Family <b>Album</b> ♥</a><nav id="nav"></nav><div class="actions"><button onclick="toggleTheme()">◐</button><a class="pill" href="login.html">כניסה</a></div></header><main class="section"><div class="heading"><div><span class="eyebrow">MEMORIES</span><h1>האלבומים שלנו</h1><p class="hint">כולל גם אלבום "כל האלבומים" עם כל התמונות המותרות לצפייה</p></div><input id="search" class="search" placeholder="🔎 חיפוש אלבום"></div><div id="grid" class="cards"></div></main><script src="js/api.js"></script><script src="js/layout.js"></script><script>mountLayout("albums");let all=[];const session=getSession();async function load(){try{let r=await API.call("albums",{token:session?.token||""}, "GET");if(!r.ok)throw Error(r.message);all=r.data||[];render()}catch(e){grid.innerHTML="<p>"+esc(e.message)+"</p>"}}function render(){let q=search.value.trim().toLowerCase();grid.innerHTML=all.filter(a=>(a.title+" "+(a.description||"")).toLowerCase().includes(q)).map((a,i)=>`<a class="card" href="album.html?id=${encodeURIComponent(a.id)}"><div class="cover c${i%4}" style="${a.coverUrl?`background-image:url('${esc(a.coverUrl)}')`:""}" role="img" aria-label="${esc(a.title)}"></div><div class="card-body"><h3>${esc(a.title)}</h3><p>${esc(a.description||"")}</p></div></a>`).join("")||"<p>לא נמצאו אלבומים.</p>"}search.oninput=render;load();</script></body></html>
