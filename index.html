@@ -4,9 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>אלבום משפחתי</title>
+    <title>Family Photo Album</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="icon" type="image/x-icon" href="images/falicon2.png">
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/theme.js"></script>
@@ -94,7 +93,7 @@
     </header>
     <main>
         <section class="hero">
-            <div><span class="eyebrow">המשפחה שלנו · הסיפור שלנו</span>
+            <div><span class="eyebrow">OUR FAMILY · OUR STORY</span>
                 <h1>החיים שלנו<br><em>בתמונות</em></h1>
                 <p>אלבום משפחתי דיגיטלי לשמירת טיולים, חגים, אירועים והרגעים הקטנים.</p><a class="btn" href="albums.html">גלה את האלבומים</a>
             </div>
@@ -119,6 +118,7 @@
         <div class="login-backdrop" aria-hidden="true"></div>
         <div class="login-modal-card">
             <button class="login-close" id="loginModalClose" type="button" aria-label="סגירת חלון" title="סגירה זמינה רק לאחר התחברות" onclick="closeLoginModal()">×</button>
+            <button class="login-theme-toggle" id="loginModalTheme" type="button" onclick="toggleLoginModalTheme()" aria-label="החלפת מצב תצוגה" title="החלף בין מצב בהיר לכהה">☾</button>
             <div class="login-modal-brand">Family <b>Album</b> ♥</div>
             <h2 id="loginModalTitle">ברוכים הבאים</h2>
             <p>התחבר לאלבום המשפחתי</p>
@@ -207,6 +207,21 @@
             }
             setTimeout(() => document.getElementById("modalEmail")?.focus(), 80);
         }
+
+        function updateLoginModalThemeButton() {
+            const btn = document.getElementById("loginModalTheme");
+            if (!btn) return;
+            const dark = document.documentElement.classList.contains("dark");
+            btn.textContent = dark ? "☀" : "☾";
+            btn.setAttribute("aria-label", dark ? "מעבר למצב בהיר" : "מעבר למצב כהה");
+            btn.title = dark ? "עבור למצב בהיר" : "עבור למצב כהה";
+        }
+
+        function toggleLoginModalTheme() {
+            toggleTheme();
+            updateLoginModalThemeButton();
+        }
+        updateLoginModalThemeButton();
 
         function closeLoginModal() {
             const modal = document.getElementById("loginModal");
