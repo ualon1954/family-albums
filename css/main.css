@@ -826,6 +826,10 @@ footer {
         align-items: stretch
     }
 
+    .top {
+       margin-right: 30px;
+    }
+
     .photo-tools input,
     .photo-tools select,
     .photo-tools button {
