@@ -1,1 +1,8 @@
-(()=>{const saved=localStorage.getItem("familyTheme");if(saved==="dark")document.documentElement.classList.add("dark");window.toggleTheme=()=>{document.documentElement.classList.toggle("dark");localStorage.setItem("familyTheme",document.documentElement.classList.contains("dark")?"dark":"light")}})();
+(() => {
+    const saved = localStorage.getItem("familyTheme");
+    if (saved === "dark") document.documentElement.classList.add("dark");
+    window.toggleTheme = () => {
+        document.documentElement.classList.toggle("dark");
+        localStorage.setItem("familyTheme", document.documentElement.classList.contains("dark") ? "dark" : "light")
+    }
+})();
